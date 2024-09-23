@@ -4,39 +4,41 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { selectCars } from '../features/car/carSlice';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import SideMenuList from './SideMenuList';
 
 function Header() {
   const [burgerStatus, setBurgerStatus] = useState(false);
   const cars = useSelector(selectCars);
 
   return (
-    <Container>
-      <a>
-        <img src='/images/logo.svg' alt=""/>
-      </a>
-      <Menu>
-        {cars && cars.map((car, index) => (
-          <a key={index} href='#'>{car}</a>
-        ))}
+    <Container> 
+        <Link to="/">
+          <img src='/images/tesla-logo.svg' alt=""width={120} height={24}/>
+        </Link>
 
+      <Menu>
+        {cars && cars.map((model,i) => {
+          const modelPath =model.toLowerCase().replace(/\s+/g, ''); //소문자변경 & 공백제거
+          return (
+            <Link to={`/${modelPath}`}>
+              <div key={i}>{model}</div>
+            </Link>
+          )
+        })}
       </Menu>
+
       <RightMenu>
-        <a href='#'>Shop</a>
-        <a href='#'>Account</a>
-        <CustomMenu onClick={() => setBurgerStatus(true)}/>
+        <Link to="/shop">Shop</Link>
+        <Link to="/login">Account</Link>
+        <CustomMenu onClick={() => setBurgerStatus(true)} />
       </RightMenu>
+      
       <BurgerNav show={burgerStatus}>
         <CloseWrapper>
           <CustomClose onClick={() => setBurgerStatus(false)}/>
         </CloseWrapper>
-        {cars && cars.map((car, index) => (
-          <li><a key={index} href='#'>{car}</a></li>
-        ))}
-        <li><a href='#'>Existing Inventory</a></li>
-        <li><a href='#'>Used Inventory</a></li>
-        <li><a href='#'>Trade-in</a></li>
-        <li><a href='#'>Cybertruck</a></li>
-        <li><a href='#'>Roadaster</a></li>
+        <SideMenuList />
       </BurgerNav>
 
     </Container>
@@ -55,6 +57,10 @@ const Container = styled.div`
   left: 0;
   right: 0;;
   z-index: 1;
+
+  img {
+    cursor: pointer;
+  }
 `; 
 
 const Menu = styled.div`
@@ -63,7 +69,7 @@ const Menu = styled.div`
   justify-content: center;
   flex:1;
 
-  a {
+  div {
     font-weight: 600;
     text-transform: uppercase;
     padding: 0 10px;
@@ -79,6 +85,7 @@ const RightMenu = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+
   a {
     font-weight: 600;
     text-transform: uppercase;
@@ -107,11 +114,7 @@ const BurgerNav = styled.div`
   li {
     padding: 15px 0;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
-
-    a {
-      font-weight: 600;
-
-    }
+    font-weight: 600;
   }
 `;
 

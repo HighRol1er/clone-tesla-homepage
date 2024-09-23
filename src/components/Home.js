@@ -5,6 +5,7 @@ import Section from './Section';
 
 function Home() {
   return (
+    //TODO: map으로 돌려서 좀 깔끔하게 만들자
     <Container>
       <Section 
         title="Model S"
