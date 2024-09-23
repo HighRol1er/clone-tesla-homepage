@@ -18,14 +18,10 @@ function Header() {
         </Link>
 
       <Menu>
-        {cars && cars.map((model,i) => {
-          const modelPath =model.toLowerCase().replace(/\s+/g, ''); //소문자변경 & 공백제거
-          return (
-            <Link to={`/${modelPath}`}>
-              <div key={i}>{model}</div>
-            </Link>
-          )
-        })}
+        {cars && cars.map((car, index) => (
+          <a key={index} href='#'>{car}</a>
+        ))}
+
       </Menu>
 
       <RightMenu>
@@ -38,7 +34,14 @@ function Header() {
         <CloseWrapper>
           <CustomClose onClick={() => setBurgerStatus(false)}/>
         </CloseWrapper>
-        <SideMenuList />
+        {cars && cars.map((car, index) => (
+          <li><a key={index} href='#'>{car}</a></li>
+        ))}
+        <li><a href='#'>Existing Inventory</a></li>
+        <li><a href='#'>Used Inventory</a></li>
+        <li><a href='#'>Trade-in</a></li>
+        <li><a href='#'>Cybertruck</a></li>
+        <li><a href='#'>Roadaster</a></li>
       </BurgerNav>
 
     </Container>

@@ -4,6 +4,10 @@ import Fade from "react-reveal/Fade";
 
 function Section({ title, description, leftBtnText, rightBtnText, backgroundImg }) {
   
+  const scrollDown = () => {
+    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+  };
+
   return (
     <Wrap bgImage={backgroundImg}>
       <Fade bottom>
@@ -24,7 +28,7 @@ function Section({ title, description, leftBtnText, rightBtnText, backgroundImg 
               </RigthButton>
             }   
           </ButtonGroup>
-          <DownArrow src="/images/down-arrow.svg"/>
+          <DownArrow onClick={scrollDown} src="/images/down-arrow.svg"/>
         </Fade>
       </Buttons>
     </Wrap>
