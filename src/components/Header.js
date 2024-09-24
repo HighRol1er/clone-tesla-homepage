@@ -14,13 +14,18 @@ function Header() {
   return (
     <Container> 
         <Link to="/">
-          <img src='/images/tesla-logo.svg' alt=""width={120} height={24}/>
+          <img src='/images/tesla-logo.svg' alt=""width={130} height={24}/>
         </Link>
 
       <Menu>
-        {cars && cars.map((car, index) => (
-          <a key={index} href='#'>{car}</a>
-        ))}
+      {cars && cars.map((model,i) => {
+          const modelPath =model.toLowerCase().replace(/\s+/g, ''); //소문자변경 & 공백제거
+          return (
+            <Link to={`/${modelPath}`}>
+              <div key={i}>{model}</div>
+            </Link>
+          );
+        })}
 
       </Menu>
 
@@ -34,14 +39,7 @@ function Header() {
         <CloseWrapper>
           <CustomClose onClick={() => setBurgerStatus(false)}/>
         </CloseWrapper>
-        {cars && cars.map((car, index) => (
-          <li><a key={index} href='#'>{car}</a></li>
-        ))}
-        <li><a href='#'>Existing Inventory</a></li>
-        <li><a href='#'>Used Inventory</a></li>
-        <li><a href='#'>Trade-in</a></li>
-        <li><a href='#'>Cybertruck</a></li>
-        <li><a href='#'>Roadaster</a></li>
+        <SideMenuList />
       </BurgerNav>
 
     </Container>
